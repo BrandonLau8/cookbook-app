@@ -6,6 +6,6 @@ export const listFoods = () => {
     return axios.get(REST_API_BASE_URL + "/foods");
 }
 
-export const addFoods = () => {
-    return axios.post(REST_API_BASE_URL + "/food/create")
+export const addFoods = (newFood:object) => {
+    return axios.post(REST_API_BASE_URL + "/food/create", newFood)
 }
