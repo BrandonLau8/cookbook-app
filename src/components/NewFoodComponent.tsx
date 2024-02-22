@@ -9,8 +9,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useFoodContext } from "../context/FoodProvider";
 
 const NewFoodComponent: React.FC<{ id?: number }> = ({ id }) => {
-  const { addFoods, updateFoods } = useFoodService();
-  const { foods, setFoods } = useFoodContext();
+  const { addFoods, updateFoods, foods } = useFoodService();
   const [foodInput, setFoodInput] = useState<string>("");
   const navigate = useNavigate();
   const { id: foodId } = useParams();
@@ -26,24 +25,20 @@ const NewFoodComponent: React.FC<{ id?: number }> = ({ id }) => {
       const parsedFoodId = parseInt(foodId);
 
       updateFoods(updatedFood, parsedFoodId);
-        // .then(() => {
-        //   const updatedFoods = foods.map((food) => {
-        //     return food.id === parsedFoodId ? { ...food } : food;
-        //   });
-        //   setFoods(updatedFoods);
-        // })
-        // .catch((error) => {
-        //   console.error("Error updating food:", error);
-        // });
+    } else {
+      addFoods({ name: foodInput });
     }
-
-    // if (id) {
-    //   updateFoods({name:foodInput}, id);
-
-    // } else {
-    //   // addFoods({ name: foodInput });
-    // }
     navigate("/");
+  };
+
+  const currentFoodInput = () => {
+    if (foodId) {
+      const parsedFoodId = parseInt(foodId);
+      const selectedFood = foods.find((food) => food.id === parsedFoodId);
+      if (selectedFood) {
+        return selectedFood.name;
+      }
+    }
   };
 
   return (
@@ -52,7 +47,7 @@ const NewFoodComponent: React.FC<{ id?: number }> = ({ id }) => {
         <TextField
           id="filled"
           label="Food"
-          defaultValue=""
+          defaultValue={currentFoodInput()}
           variant="filled"
           onChange={handleFoodInput}
         />

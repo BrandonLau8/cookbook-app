@@ -47,7 +47,7 @@ const AllFoodComponent: React.FC = () => {
       >
         {foods.map((food) => (
           <Grid key={food.id} item xs={4} sm={6} md={4} lg={4}>
-            <Card key={food.id} sx={{ maxWidth: 345 }}>
+            <Card sx={{ maxWidth: 345 }}>
               <CardHeader
                 avatar={
                   <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">

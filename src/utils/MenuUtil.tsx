@@ -8,13 +8,12 @@ import useFoodService from "../services/food.service";
 import { useParams } from "react-router-dom";
 import { FoodItem } from "../context/FoodProvider";
 
-
-const MenuListComposition: React.FC<{id?:number}> = ({ id }) => {
+const MenuListComposition: React.FC<{ id?: number }> = ({ id }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
   const { toCreateFood } = NavigateUtil();
-  const { foods } = useFoodService();
+  const { foods, setFoods, deleteFood } = useFoodService();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -23,14 +22,27 @@ const MenuListComposition: React.FC<{id?:number}> = ({ id }) => {
     setAnchorEl(null);
   };
 
-  const handleNavigate = () => {
+  const handleNavigateToEdit = () => {
     if (id !== undefined) {
       const selectedFood = foods.find((food) => food.id === id);
       if (selectedFood) {
         toCreateFood(id);
+        console.log(id);
       } else {
         return null;
       }
+    }
+  };
+
+  const handleDelete = () => {
+    if(id !== undefined) {
+        const selectedFood = foods.find((food) => food.id === id);
+        const updatedFood = foods.filter((food) => food.id !== id)
+        if(selectedFood) {
+            deleteFood(id);
+            setFoods(updatedFood);
+            console.log(`${selectedFood.name} + deleted`)
+        }
     }
   };
 
@@ -55,7 +67,8 @@ const MenuListComposition: React.FC<{id?:number}> = ({ id }) => {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleNavigate}>Edit</MenuItem>
+        <MenuItem onClick={handleNavigateToEdit}>Edit</MenuItem>
+        <MenuItem onClick={handleDelete}>Delete</MenuItem>
       </Menu>
     </div>
   );

@@ -41,9 +41,9 @@ const useFoodService = () => {
     foodId: number
   ): Promise<AxiosResponse<FoodServiceResponse>> => {
     return axios
-      .patch(REST_API_BASE_URL + `/food/${foodId}/update`, updatedFood)
+      .put(REST_API_BASE_URL + `/food/${foodId}/update`, updatedFood)
       .then((response) => {
-        console.log("updated" + response);
+        console.log("updated" + response.data);
         return response;
       })
       .catch((error) => {
@@ -51,6 +51,20 @@ const useFoodService = () => {
         return Promise.reject(error);
       });
   };
+
+  const deleteFood = (foodId: number) => {
+    return axios
+    .delete(REST_API_BASE_URL + `/food/${foodId}/delete`)
+    .then((response) => {
+      console.log("updated" + response.data);
+      return response;
+    })
+    .catch((error) => {
+      console.error(error);
+      return Promise.reject(error);
+    });
+
+  }
 
   useEffect(() => {
     listFoods()
@@ -76,6 +90,7 @@ const useFoodService = () => {
     listFoods,
     addFoods,
     updateFoods,
+    deleteFood,
     selectedInputId,
     toggleInput,
     inputRef,
