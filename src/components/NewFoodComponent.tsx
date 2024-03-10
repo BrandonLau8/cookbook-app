@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import React, { ChangeEvent, FormEvent } from "react";
@@ -43,7 +43,14 @@ const NewFoodComponent: React.FC<{ id?: number }> = ({ id }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Box sx={{ display: "flex", flexDirection: "column" }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+
+          paddingX: "500px",
+        }}
+      >
         <TextField
           id="filled"
           label="Food"
@@ -67,7 +74,7 @@ const NewFoodComponent: React.FC<{ id?: number }> = ({ id }) => {
             maxHeight: { xs: 233, md: 167 },
             maxWidth: { xs: 350, md: 250 },
           }}
-          alt="The house from the offer."
+          alt="The food."
           src=""
         ></Box>
         <Button variant="contained" type="submit">

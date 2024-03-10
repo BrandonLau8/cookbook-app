@@ -1,30 +1,28 @@
+import { Routes, Route, Link } from "react-router-dom";
 
-import {Routes, Route, Link} from "react-router-dom"
-import './App.css'
-import { Box, Button, CssBaseline } from '@mui/material'
+import CssBaseline from "@mui/material/CssBaseline";
+import Box from "@mui/material/Box";
 
-import AllFoodComponent from "./components/AllFoodComponent"
-import NewFoodComponent from "./components/NewFoodComponent"
-import FoodProfile from "./components/FoodProfile"
-
+import AllFoodComponent from "./components/AllFoodComponent";
+import NewFoodComponent from "./components/NewFoodComponent";
+import FoodProfile from "./components/FoodProfile";
+import Navbar from "./components/Navbar";
 
 function App() {
-  
-
   return (
     <>
       <Box>
         <CssBaseline />
-     
+        <Navbar />
 
-      <Routes>
-        <Route path='/' element={<AllFoodComponent/>}/>
-        <Route path='/:id' element={<FoodProfile/>}/>
-        <Route path="/:id?/createfood" element={<NewFoodComponent/>}/>
-      </Routes>
+        <Routes>
+          <Route path="/" element={<AllFoodComponent />} />
+          <Route path="/:id" element={<FoodProfile />} />
+          <Route path="/:id?/createfood" element={<NewFoodComponent />} />
+        </Routes>
       </Box>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

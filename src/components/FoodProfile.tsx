@@ -1,9 +1,9 @@
-import React from 'react'
+import { Box } from "@mui/material";
+import React from "react";
+import CollapsibleTable from "./IngredientsTable";
 
 const FoodProfile = () => {
-  return (
-    <div>FoodProfile</div>
-  )
-}
+  return <CollapsibleTable />;
+};
 
-export default FoodProfile
+export default FoodProfile;
