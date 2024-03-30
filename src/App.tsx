@@ -7,6 +7,7 @@ import AllFoodComponent from "./components/AllFoodComponent";
 import NewFoodComponent from "./components/NewFoodComponent";
 import FoodProfile from "./components/FoodProfile";
 import Navbar from "./components/Navbar";
+import LoginPage from "./components/LoginPage";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/" element={<AllFoodComponent />} />
           <Route path="/:id" element={<FoodProfile />} />
           <Route path="/:id?/createfood" element={<NewFoodComponent />} />
+          <Route path="/login" element={<LoginPage />} />
         </Routes>
       </Box>
     </>
