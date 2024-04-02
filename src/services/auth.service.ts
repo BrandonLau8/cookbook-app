@@ -1,8 +1,15 @@
 import axios, { Axios, AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 
+interface UserItem {
+  username: string;
+  password: string;
+}
+
 interface AuthResponse {
-  token: string; //represents the identity of the authenticated person
+  data: {
+    content: UserItem;
+  }; //represents the identity of the authenticated person
 }
 
 const useAuthService = () => {
@@ -10,41 +17,38 @@ const useAuthService = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const postLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
 
+  const postLogin = async (): Promise<void> => {
     try {
-      const response: AxiosResponse<AuthResponse> =
-        await axios.post<AuthResponse>(REST_API_BASE_URL + "/login", {
-          username,
-          password,
-        });
-      console.log("Login successful");
-      const token = response.data.token;
-      // Here you can do something with the token, such as storing it in localStorage or a state variable
-      // For example, localStorage.setItem("token", token);
-
-      window.location.href = "/"; // Redirect the user after successful login
-
-      console.log(token);
+        const response: AxiosResponse<AuthResponse> = await axios.post<AuthResponse>(
+            REST_API_BASE_URL + "/login",
+            {
+                username: username,
+                password: password,
+            }
+        );
+        console.log("Login successful:", response.data);
+        // You can perform further actions here after successful login
     } catch (error) {
-      console.error("Login failed", error);
+        console.error("Login failed:", error);
+        // Handle login failure if needed
     }
-  };
+};
 
-  const getLogin = async () => {
-    try {
-      const response: AxiosResponse<AuthResponse> =
-        await axios.get<AuthResponse>(REST_API_BASE_URL + "/login");
-      // Handle response as needed
-      console.log(response);
-      return response.data;
-    } catch (error) {
-      console.error("Login failed", error);
-      // Handle error appropriately
-      throw error; // Rethrow error to be handled by caller
-    }
-  };
+  //   const getLogin = async () => {
+  //     try {
+  //       const response: AxiosResponse<T> = await axios.get<T>(
+  //         REST_API_BASE_URL + "/login"
+  //       );
+  //       // Handle response as needed
+  //       console.log(response);
+  //       return response.data;
+  //     } catch (error) {
+  //       console.error("Login failed", error);
+  //       // Handle error appropriately
+  //       throw error; // Rethrow error to be handled by caller
+  //     }
+  //   };
 
   return {
     username,
@@ -52,7 +56,6 @@ const useAuthService = () => {
     password,
     setPassword,
     postLogin,
-    getLogin,
   };
 };
 

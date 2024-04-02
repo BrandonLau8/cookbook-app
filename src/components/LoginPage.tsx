@@ -6,12 +6,12 @@ import Button from "@mui/material/Button";
 import { Form } from "react-router-dom";
 
 const LoginPage = () => {
-  const { username, setUsername, password, setPassword, getLogin, postLogin } =
+  const { username, setUsername, password, setPassword, postLogin } =
     useAuthService();
 
-  useEffect(() => {
-    getLogin();
-  }, []);
+//   useEffect(() => {
+//     getLogin();
+//   }, []);
 
   return (
     <>

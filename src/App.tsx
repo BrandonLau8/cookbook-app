@@ -8,6 +8,8 @@ import NewFoodComponent from "./components/NewFoodComponent";
 import FoodProfile from "./components/FoodProfile";
 import Navbar from "./components/Navbar";
 import LoginPage from "./components/LoginPage";
+import User from "./components/User";
+import Admin from "./components/Admin";
 
 function App() {
   return (
@@ -17,10 +19,13 @@ function App() {
         <Navbar />
 
         <Routes>
-          <Route path="/" element={<AllFoodComponent />} />
+          <Route path="/foods" element={<AllFoodComponent />} />
           <Route path="/:id" element={<FoodProfile />} />
           <Route path="/:id?/createfood" element={<NewFoodComponent />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/user" element={<User />} />
+          <Route path="/admin" element={<Admin />} />
+
         </Routes>
       </Box>
     </>
