@@ -6,12 +6,16 @@ import Button from "@mui/material/Button";
 import { Form } from "react-router-dom";
 
 const LoginPage = () => {
-  const { username, setUsername, password, setPassword, postLogin } =
+  const { username, setUsername, password, setPassword, onLogin } =
     useAuthService();
 
 //   useEffect(() => {
 //     getLogin();
 //   }, []);
+
+const onSubmitLogin = (e:React.FormEvent<HTMLFormElement>) => {
+ onLogin(e, username, password);   
+}
 
   return (
     <>
@@ -22,7 +26,7 @@ const LoginPage = () => {
         marginLeft={"auto"}
         marginRight={"auto"}
         component={"form"}
-        onSubmit={postLogin}
+        onSubmit={onSubmitLogin}
       >
         <TextField
           id="outlined-basic"

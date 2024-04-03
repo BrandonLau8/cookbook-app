@@ -1,5 +1,6 @@
 import axios, { Axios, AxiosResponse } from "axios";
-import { useEffect, useState } from "react";
+import { request } from "../utils/axios_helper";
+import { ReactEventHandler, useEffect, useState } from "react";
 
 interface UserItem {
   username: string;
@@ -17,23 +18,42 @@ const useAuthService = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
+  const onLogin = (
+    e: React.FormEvent<HTMLFormElement>,
+    username: string,
+    password: string
+  ) => {
+    e.preventDefault();
+    request(
+        "POST",
+        "/auth/login",
+        {
+            login: username,
+            password: password
+        }
+    ).then((response) => {
+        console.log(response.data.token);
+    }).catch((error) => {
+        console.error(error)
+    })
+  };
 
-  const postLogin = async (): Promise<void> => {
-    try {
-        const response: AxiosResponse<AuthResponse> = await axios.post<AuthResponse>(
-            REST_API_BASE_URL + "/login",
-            {
-                username: username,
-                password: password,
-            }
-        );
-        console.log("Login successful:", response.data);
-        // You can perform further actions here after successful login
-    } catch (error) {
-        console.error("Login failed:", error);
-        // Handle login failure if needed
-    }
-};
+  //   const postLogin = async (): Promise<void> => {
+  //     try {
+  //         const response: AxiosResponse<AuthResponse> = await axios.post<AuthResponse>(
+  //             REST_API_BASE_URL + "/login",
+  //             {
+  //                 username: username,
+  //                 password: password,
+  //             }
+  //         );
+  //         console.log("Login successful:", response.data);
+  //         // You can perform further actions here after successful login
+  //     } catch (error) {
+  //         console.error("Login failed:", error);
+  //         // Handle login failure if needed
+  //     }
+  // };
 
   //   const getLogin = async () => {
   //     try {
@@ -55,7 +75,7 @@ const useAuthService = () => {
     setUsername,
     password,
     setPassword,
-    postLogin,
+    onLogin,
   };
 };
 
