@@ -24,18 +24,26 @@ const useAuthService = () => {
     password: string
   ) => {
     e.preventDefault();
-    request(
-        "POST",
-        "/auth/login",
-        {
-            login: username,
-            password: password
-        }
-    ).then((response) => {
-        console.log(response.data.token);
-    }).catch((error) => {
-        console.error(error)
+    request("POST", "/login", {
+      username: username,
+      password: password,
     })
+      .then((response) => {
+        const authorities = response.data.authorities;
+        if (authorities && authorities.length > 0) {
+          const role = authorities[0].authority;
+          if (role === "ROLE_ADMIN" && role === "ROLE_USER") {
+            window.location.href = "/admin";
+          } 
+          if (role === "ROLE_USER") {
+            window.location.href = "/user"
+          }
+        }
+        console.log(response.data.authorities[0]);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   //   const postLogin = async (): Promise<void> => {
