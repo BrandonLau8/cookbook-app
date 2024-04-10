@@ -1,9 +1,18 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import useAuthService from "../services/auth.service";
 
 
 const NavigateUtil = () => {
   const navigate = useNavigate();
+
+  const toLogin = () => {
+    navigate("/login");
+  }
+
+  const toRegister = () => {
+    navigate("/register");
+  }
 
   const toCreateFood = (id?:number) => {
     if(id !== undefined) {
@@ -19,6 +28,8 @@ const NavigateUtil = () => {
   return {
     toCreateFood,
     toFoodProfile,
+    toLogin,
+    toRegister,
   };
 };
 

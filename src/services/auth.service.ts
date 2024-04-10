@@ -29,54 +29,38 @@ const useAuthService = () => {
       password: password,
     })
       .then((response) => {
-        const authorities = response.data.authorities;
-        if (authorities && authorities.length > 0) {
-          const role = authorities[0].authority;
-          if (role === "ROLE_ADMIN" && role === "ROLE_USER") {
-            window.location.href = "/admin";
-          } 
-          if (role === "ROLE_USER") {
-            window.location.href = "/user"
-          }
-        }
-        console.log(response.data.authorities[0]);
+        console.log(response.data);
+        // const authorities = response.data.authorities;
+        // if (authorities && authorities.length > 0) {
+        //   const role = authorities[0].authority;
+        //   if (role === "ROLE_ADMIN" && role === "ROLE_USER") {
+        //     window.location.href = "/admin";
+        //   }
+        //   if (role === "ROLE_USER") {
+        //     window.location.href = "/user";
+        //   }
+        // }
+        // console.log(response.data.authorities[0]);
       })
       .catch((error) => {
         console.error(error);
       });
   };
 
-  //   const postLogin = async (): Promise<void> => {
-  //     try {
-  //         const response: AxiosResponse<AuthResponse> = await axios.post<AuthResponse>(
-  //             REST_API_BASE_URL + "/login",
-  //             {
-  //                 username: username,
-  //                 password: password,
-  //             }
-  //         );
-  //         console.log("Login successful:", response.data);
-  //         // You can perform further actions here after successful login
-  //     } catch (error) {
-  //         console.error("Login failed:", error);
-  //         // Handle login failure if needed
-  //     }
-  // };
-
-  //   const getLogin = async () => {
-  //     try {
-  //       const response: AxiosResponse<T> = await axios.get<T>(
-  //         REST_API_BASE_URL + "/login"
-  //       );
-  //       // Handle response as needed
-  //       console.log(response);
-  //       return response.data;
-  //     } catch (error) {
-  //       console.error("Login failed", error);
-  //       // Handle error appropriately
-  //       throw error; // Rethrow error to be handled by caller
-  //     }
-  //   };
+  const onRegister = (
+    e: React.FormEvent<HTMLFormElement>,
+    username: string,
+    password: string
+  ) => {
+    e.preventDefault();
+    request("POST", "/register", {
+      username: username,
+      password: password,
+    })
+    .then((response) => {
+      console.log(response.data);
+    })
+  };
 
   return {
     username,
@@ -84,6 +68,7 @@ const useAuthService = () => {
     password,
     setPassword,
     onLogin,
+    onRegister,
   };
 };
 

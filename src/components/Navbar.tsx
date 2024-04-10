@@ -36,7 +36,7 @@ function Navbar() {
     setAnchorElUser(null);
   };
 
-  const {toCreateFood} = NavigateUtil();
+  const {toCreateFood, toLogin, toRegister} = NavigateUtil();
 
   return (
     <AppBar>
@@ -98,8 +98,15 @@ function Navbar() {
             Add Food
           </Button>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent:'right', pr:2 }}>
-           Chef Lau
+         
+
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent:'right', pr:2, gap:1 }}>
+          <Button onClick={() => toRegister()} variant="contained">
+            Register
+          </Button>
+          <Button onClick={() => toLogin()} variant="contained">
+            Login
+          </Button>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>

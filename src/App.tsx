@@ -10,6 +10,7 @@ import Navbar from "./components/Navbar";
 import LoginPage from "./components/LoginPage";
 import User from "./components/User";
 import Admin from "./components/Admin";
+import RegisterPage from "./components/RegisterPage";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/:id" element={<FoodProfile />} />
           <Route path="/:id?/createfood" element={<NewFoodComponent />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage/>} /> 
           <Route path="/user" element={<User />} />
           <Route path="/admin" element={<Admin />} />
 
