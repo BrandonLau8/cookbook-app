@@ -8,6 +8,8 @@ import {
 } from "../context/FoodProvider";
 import { useParams } from "react-router-dom";
 
+import { request } from "../utils/axios_helper";
+
 const useFoodService = () => {
   const { foods, setFoods } = useFoodContext();
   const { selectedInputId, toggleInput } = useSelectedInput();
@@ -16,10 +18,18 @@ const useFoodService = () => {
 
   const REST_API_BASE_URL = "http://localhost:8080/api";
 
-  const listFoods = () => {
-    return axios.get(REST_API_BASE_URL + "/foods");
-  };
+  // const listFoods = () => {
+  //   return axios.get(REST_API_BASE_URL + "/foods");
+  // };
 
+  const allFoods = () => {
+    request("GET", "/foods", {
+      
+    }).then((response) => {
+      console.log(response.data);
+      setFoods(response.data.content);
+    });
+  };
   const addFoods = (
     newFood: FoodItem
   ): Promise<AxiosResponse<FoodServiceResponse>> => {
@@ -54,27 +64,19 @@ const useFoodService = () => {
 
   const deleteFood = (foodId: number) => {
     return axios
-    .delete(REST_API_BASE_URL + `/food/${foodId}/delete`)
-    .then((response) => {
-      console.log("updated" + response.data);
-      return response;
-    })
-    .catch((error) => {
-      console.error(error);
-      return Promise.reject(error);
-    });
-
-  }
-
-  useEffect(() => {
-    listFoods()
+      .delete(REST_API_BASE_URL + `/food/${foodId}/delete`)
       .then((response) => {
-        setFoods(response.data.content);
-        // console.log(response.data.content);
+        console.log("updated" + response.data);
+        return response;
       })
       .catch((error) => {
         console.error(error);
+        return Promise.reject(error);
       });
+  };
+
+  useEffect(() => {
+    allFoods();
   }, []);
 
   useEffect(() => {
@@ -87,7 +89,7 @@ const useFoodService = () => {
   return {
     foods,
     setFoods,
-    listFoods,
+    allFoods,
     addFoods,
     updateFoods,
     deleteFood,

@@ -1,21 +1,29 @@
-import React from 'react'
-import useAuthService from '../services/auth.service';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import { Typography } from '@mui/material';
+import React from "react";
+import useAuthService from "../services/auth.service";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import { Typography } from "@mui/material";
 
 const RegisterPage = () => {
-    const { username, setUsername, password, setPassword, onRegister } =
-    useAuthService();
+  const {
+    firstname,
+    setFirstname,
+    lastname,
+    setLastname,
+    username,
+    setUsername,
+    password,
+    setPassword,
+    onRegister,
+  } = useAuthService();
 
-const onSubmitLogin = (e:React.FormEvent<HTMLFormElement>) => {
- onRegister(e, username, password);   
-}
+  const onSubmitLogin = (e: React.FormEvent<HTMLFormElement>) => {
+    onRegister(e, firstname, lastname, username, password);
+  };
 
   return (
     <>
-    
       <Box
         display={"flex"}
         flexDirection={"column"}
@@ -26,14 +34,38 @@ const onSubmitLogin = (e:React.FormEvent<HTMLFormElement>) => {
         onSubmit={onSubmitLogin}
       >
         <div>Register</div>
+
+        {/* Firstname */}
         <TextField
           id="outlined-basic"
-          label="User"
+          label="First Name"
+          variant="outlined"
+          type="text"
+          value={firstname}
+          onChange={(e) => setFirstname(e.target.value)}
+        />
+
+        {/* Lastname */}
+        <TextField
+          id="outlined-basic"
+          label="Last Name"
+          variant="outlined"
+          type="text"
+          value={lastname}
+          onChange={(e) => setLastname(e.target.value)}
+        />
+
+        {/* Username */}
+        <TextField
+          id="outlined-basic"
+          label="Username"
           variant="outlined"
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
+
+        {/* Password */}
         <TextField
           id="outlined-basic"
           label="Password"
@@ -47,7 +79,7 @@ const onSubmitLogin = (e:React.FormEvent<HTMLFormElement>) => {
         </Button>
       </Box>
     </>
-  )
-}
+  );
+};
 
-export default RegisterPage
+export default RegisterPage;

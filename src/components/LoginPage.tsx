@@ -4,18 +4,21 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Form } from "react-router-dom";
+import { useAuthContext } from "../context/AuthProvider";
 
 const LoginPage = () => {
   const { username, setUsername, password, setPassword, onLogin } =
     useAuthService();
 
-//   useEffect(() => {
-//     getLogin();
-//   }, []);
+  //   useEffect(() => {
+  //     getLogin();
+  //   }, []);
+  const { status, setStatus } = useAuthContext();
 
-const onSubmitLogin = (e:React.FormEvent<HTMLFormElement>) => {
- onLogin(e, username, password);   
-}
+
+  const onSubmitLogin = (e: React.FormEvent<HTMLFormElement>) => {
+    onLogin(e, username, password);
+  };
 
   return (
     <>
@@ -28,6 +31,7 @@ const onSubmitLogin = (e:React.FormEvent<HTMLFormElement>) => {
         component={"form"}
         onSubmit={onSubmitLogin}
       >
+        <div>Login</div>
         <TextField
           id="outlined-basic"
           label="User"

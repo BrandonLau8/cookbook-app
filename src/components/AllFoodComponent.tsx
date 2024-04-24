@@ -25,7 +25,7 @@ const AllFoodComponent: React.FC = () => {
   const {
     foods,
     setFoods,
-    listFoods,
+    allFoods,
     addFoods,
     selectedInputId,
     toggleInput,
